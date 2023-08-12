@@ -1,4 +1,7 @@
 syntax on
+set t_Co=256
+set foldmethod=indent
+set foldlevel=99
 filetype off
 set belloff=all
 set clipboard=unnamed
@@ -9,13 +12,22 @@ set backspace=2
 set mouse=a
 set expandtab
 set autoindent
-set shiftwidth=4
 set incsearch
 set encoding=utf-8
 set showmatch
 highlight Comment ctermfg=green
 let python_highlight_all=1
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+au BufNewFile, BufRead *.py
+        \ set tabstop=2
+        \ set softtabstop=2
+        \ set shiftwidth=2
+        \ set textwidth=79
+        \ set expandtab
+        \ set autoindent
+        \ set fileformat=unix
+let g:ale_linters = {'pyton':['flake8']}
+"au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " set the runtime path to include Vundle and initialize
 " In Windows, the Vundle folder needs to be in the user directory, in this
@@ -40,6 +52,8 @@ Plugin 'https://github.com/scrooloose/nerdtree.git'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'valloric/youcompleteme'
+"Plugin 'dense-analysis/ale'
 "Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 
@@ -58,13 +72,6 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-" Use Ctrl-s and Ctrl-q as keybinds
-silent !stty -ixon
-
-" Restores default behavior when leaving VIM
-autocmd VimLeave * silent !stty ixon
-
-
 nmap <F6> :NERDTreeToggle<CR>
 nmap <C-s> :w <CR>
 nmap <C-q> :wq <CR>
@@ -72,6 +79,7 @@ nmap <C-q> :wq <CR>
 imap <C-s> :w <CR>
 imap <C-q> :wq <CR>
 
+nmap <F5> :w !python % <CR>
 
-
-
+" 'Folds' code
+nnoremap<space> za  
