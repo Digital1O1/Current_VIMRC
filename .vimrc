@@ -1,4 +1,6 @@
 syntax on
+set hlsearch
+set incsearch
 set t_Co=256
 set foldmethod=indent
 set foldlevel=99
